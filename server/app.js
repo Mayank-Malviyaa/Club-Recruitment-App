@@ -6,7 +6,11 @@ require("dotenv").config();
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: ["https://club-recruitment-app.vercel.app"],
+  methods: ["GET", "POST"],
+  credentials: true
+}));
 app.use(express.json());
 
 const clubRoutes = require("./routes/clubRoutes");

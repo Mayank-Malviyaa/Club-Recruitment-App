@@ -38,18 +38,20 @@ function App() {
               try {
                 const res = await fetch("http://localhost:5000/api/club/apply", {
                   method: "POST",
-                  headers: { "Content-Type": "application/json" },
+                  headers: {
+                     "Content-Type": "application/json" },
                   body: JSON.stringify(formData),
                 });
+                const data = await res.json();
                 if (res.ok) {
                   alert("✅ Submitted!");
                   e.target.reset();
                 } else {
-                  alert("❌ Failed");
+                  alert("❌ Failed" + data.message);
                 }
               } catch (err) {
                  console.error("❌ Frontend Error:", err);
-                alert("❌ Error submitting");
+                alert("❌ Error submitting" + err.message);
               }
             }}
           >
