@@ -36,7 +36,7 @@ function App() {
                 whyJoin: e.target.whyJoin.value,
               };
               try {
-                const res = await fetch("http://localhost:5000/api/club/apply", {
+                const res = await fetch("https://club-recruitment-app.onrender.com/api/club/apply", {
                   method: "POST",
                   headers: {
                      "Content-Type": "application/json" },

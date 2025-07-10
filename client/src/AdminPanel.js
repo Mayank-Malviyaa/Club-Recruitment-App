@@ -6,7 +6,7 @@ const AdminPanel = ({ onLogout }) => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/club/all");
+        const res = await fetch("https://club-recruitment-app.onrender.com/api/club/all");
         const data = await res.json();
         setApplications(data);
       } catch (err) {
