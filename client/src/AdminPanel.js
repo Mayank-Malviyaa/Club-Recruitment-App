@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const AdminPanel = ({ onLogout }) => {
+function AdminPanel({ onLogout }) {
   const [applications, setApplications] = useState([]);
 
   useEffect(() => {
@@ -9,8 +9,9 @@ const AdminPanel = ({ onLogout }) => {
         const res = await fetch("https://club-recruitment-app.onrender.com/api/club/all");
         const data = await res.json();
         setApplications(data);
-      } catch (err) {
-        console.error("❌ Failed to fetch applications", err);
+      } catch (error) {
+        console.error("❌ Failed to fetch applications", error);
+        alert("❌ Failed to fetch applications. Please refresh or try again.");
       }
     };
 
@@ -19,42 +20,38 @@ const AdminPanel = ({ onLogout }) => {
 
   return (
     <div>
-      <h2>📊 Admin Panel - Submitted Applications</h2>
-      <button onClick={onLogout}>🚪 Logout</button>
-      {applications.length === 0 ? (
-        <p>No submissions yet.</p>
-      ) : (
-        <table border="1" cellPadding="10" style={{ marginTop: "20px", width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr>
-              <th>Full Name</th>
-              <th>Branch</th>
-              <th>Year</th>
-              <th>Email</th>
-              <th>Mobile</th>
-              <th>Club Name</th>
-              <th>Why Join</th>
-              <th>Submitted On</th>
+      <h2>🛠 Admin Panel</h2>
+      <button onClick={onLogout}>🔙 Logout</button>
+      <br />
+      <br />
+      <table border="1" cellPadding="10">
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Branch</th>
+            <th>Year</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Club Name</th>
+            <th>Why Join</th>
+          </tr>
+        </thead>
+        <tbody>
+          {applications.map((app) => (
+            <tr key={app._id}>
+              <td>{app.fullName}</td>
+              <td>{app.branch}</td>
+              <td>{app.year}</td>
+              <td>{app.email}</td>
+              <td>{app.mobile}</td>
+              <td>{app.clubName}</td>
+              <td>{app.whyJoin}</td>
             </tr>
-          </thead>
-          <tbody>
-            {applications.map((app) => (
-              <tr key={app._id}>
-                <td>{app.fullName}</td>
-                <td>{app.branch}</td>
-                <td>{app.year}</td>
-                <td>{app.email}</td>
-                <td>{app.mobile}</td>
-                <td>{app.clubName}</td>
-                <td>{app.whyJoin}</td>
-                <td>{new Date(app.createdAt).toLocaleString()}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-};
+}
 
 export default AdminPanel;
